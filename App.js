@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, View, FlatList, Button } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import Item from "./components/Item";
 import ItemInput from "./components/ItemInput";
 
@@ -21,7 +22,7 @@ const App = () => {
   const handleAddList = (enteredText) => {
     // setTodo([...todo, listItem]); // this is not the best way to store the data in the state variable, if the the present data is depend on next data
     if (enteredText == "") {
-      console.warn("Plese Add a Item...");
+      console.warn("Plese Add An Item....");
     } else {
       setTodo((currrentList) => [
         ...todo,
@@ -39,34 +40,41 @@ const App = () => {
   };
 
   return (
-    <View style={styles.appContainer}>
-      <Button title="Add Todo List" color="#c71585" onPress={handleAddItems} />
-      {openModal && (
-        <ItemInput
-          onAddList={handleAddList}
-          visible={openModal}
-          onCloseModal={handleModalClose}
+    <>
+      <StatusBar style="light" />
+      <View style={styles.appContainer}>
+        <Button
+          title="Add Todo List"
+          color="#c71585"
+          onPress={handleAddItems}
         />
-      )}
-      <View style={styles.listContainer}>
-        <FlatList
-          showsVerticalScrollIndicator={false}
-          data={todo}
-          renderItem={(itemData) => {
-            return (
-              <Item
-                text={itemData.item.text}
-                id={itemData.item.id}
-                onDeleteItem={handleDeleteItem}
-              />
-            );
-          }}
-          keyExtractor={(item, index) => {
-            return item.id;
-          }}
-        />
+        {openModal && (
+          <ItemInput
+            onAddList={handleAddList}
+            visible={openModal}
+            onCloseModal={handleModalClose}
+          />
+        )}
+        <View style={styles.listContainer}>
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            data={todo}
+            renderItem={(itemData) => {
+              return (
+                <Item
+                  text={itemData.item.text}
+                  id={itemData.item.id}
+                  onDeleteItem={handleDeleteItem}
+                />
+              );
+            }}
+            keyExtractor={(item, index) => {
+              return item.id;
+            }}
+          />
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 

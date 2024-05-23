@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { Button, Modal, StyleSheet, TextInput, View } from "react-native";
+import {
+  Button,
+  Image,
+  Modal,
+  StyleSheet,
+  TextInput,
+  View,
+} from "react-native";
 
 const ItemInput = (props) => {
   const [listItem, setListItem] = useState("");
@@ -18,11 +25,13 @@ const ItemInput = (props) => {
   return (
     <Modal visible={props.visible} animationType="slide">
       <View style={styles.inputContainer}>
+        <Image source={require("../assets/todoIcon.png")} style={styles.img} />
         <TextInput
           placeholder="Add your list"
           style={styles.textInput}
           onChangeText={handleInputField}
           value={listItem}
+          placeholderTextColor="#ffffff"
         />
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
@@ -48,10 +57,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 24,
-    borderBottomWidth: 2,
-    borderColor: "#cccccc",
     padding: 16,
+    backgroundColor: "#222222",
+  },
+  img: {
+    width: 100,
+    height: 100,
+    margin: 20,
   },
   textInput: {
     borderWidth: 1,
@@ -59,10 +71,14 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     width: "100%",
     padding: 8,
+    color: "#ffffff",
+    fontSize: 16,
+    padding: 16,
+    borderRadius: 8,
   },
   buttonContainer: {
     flexDirection: "row",
-    marginTop: 16,
+    marginTop: 18,
   },
   button: {
     width: "30%",
