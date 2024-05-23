@@ -1,10 +1,21 @@
 import { useState } from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import { StyleSheet, View, FlatList, Button } from "react-native";
 import Item from "./components/Item";
 import ItemInput from "./components/ItemInput";
 
 const App = () => {
   const [todo, setTodo] = useState([]);
+  const [openModal, setOpenModal] = useState(false);
+
+  // modal show
+  const handleAddItems = () => {
+    setOpenModal(true);
+  };
+
+  // modal close
+  const handleModalClose = () => {
+    setOpenModal(false);
+  };
 
   // handle add list
   const handleAddList = (enteredText) => {
@@ -16,6 +27,7 @@ const App = () => {
         ...todo,
         { text: enteredText, id: Math.random().toString() },
       ]);
+      handleModalClose();
     }
   };
 
@@ -28,7 +40,14 @@ const App = () => {
 
   return (
     <View style={styles.appContainer}>
-      <ItemInput onAddList={handleAddList} />
+      <Button title="Add Todo List" color="#c71585" onPress={handleAddItems} />
+      {openModal && (
+        <ItemInput
+          onAddList={handleAddList}
+          visible={openModal}
+          onCloseModal={handleModalClose}
+        />
+      )}
       <View style={styles.listContainer}>
         <FlatList
           showsVerticalScrollIndicator={false}
