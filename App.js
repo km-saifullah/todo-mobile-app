@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  Button,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
 const App = () => {
   const [listItem, setListItem] = useState("");
@@ -24,14 +31,16 @@ const App = () => {
           style={styles.textInput}
           onChangeText={handleInputField}
         />
-        <Button title="Add Item" onPress={handleAddList} />
+        <Button title="Add Item" onPress={handleAddList} color="#c71585" />
       </View>
       <View style={styles.listContainer}>
-        {todo.map((item, index) => (
-          <View key={index} style={styles.listItem}>
-            <Text style={styles.itemText}>{item}</Text>
-          </View>
-        ))}
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {todo.map((item, index) => (
+            <View key={index} style={styles.listItem}>
+              <Text style={styles.itemText}>{item}</Text>
+            </View>
+          ))}
+        </ScrollView>
       </View>
     </View>
   );
@@ -66,14 +75,14 @@ const styles = StyleSheet.create({
     flex: 4,
   },
   listItem: {
-    backgroundColor: "lightblue",
+    backgroundColor: "#B33771",
     margin: 8,
     borderRadius: 6,
     paddingVertical: 8,
     paddingHorizontal: 8,
   },
   itemText: {
-    color: "#222222",
+    color: "#f5f6fa",
     fontSize: 16,
     fontWeight: "500",
   },
