@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   View,
+  FlatList,
 } from "react-native";
 
 const App = () => {
@@ -20,7 +21,10 @@ const App = () => {
   // handle add list
   const handleAddList = () => {
     // setTodo([...todo, listItem]); // this is not the best way to store the data in the state variable, if the the present data is depend on next data
-    setTodo((currrentList) => [...todo, listItem]);
+    setTodo((currrentList) => [
+      ...todo,
+      { text: listItem, id: Math.random().toString() },
+    ]);
   };
 
   return (
@@ -34,13 +38,30 @@ const App = () => {
         <Button title="Add Item" onPress={handleAddList} color="#c71585" />
       </View>
       <View style={styles.listContainer}>
-        <ScrollView showsVerticalScrollIndicator={false}>
+        {/* scrollview */}
+        {/* <ScrollView showsVerticalScrollIndicator={false}>
           {todo.map((item, index) => (
             <View key={index} style={styles.listItem}>
               <Text style={styles.itemText}>{item}</Text>
             </View>
           ))}
-        </ScrollView>
+        </ScrollView> */}
+
+        {/* flatlist */}
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={todo}
+          renderItem={(itemData) => {
+            return (
+              <View style={styles.listItem}>
+                <Text style={styles.itemText}>{itemData.item.text}</Text>
+              </View>
+            );
+          }}
+          keyExtractor={(item, index) => {
+            return item.id;
+          }}
+        />
       </View>
     </View>
   );
